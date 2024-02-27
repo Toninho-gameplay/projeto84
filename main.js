@@ -1,49 +1,85 @@
-var names_of_people = [];
-    
-function submit()
+canvas = document.getElementById('myCanvas');
+ctx = canvas.getContext("2d");
+
+img_width = 300;
+img_height = 100;
+
+var img_image;
+
+img_x = 100;
+img_y = 100;
+
+function add() {
+	img_imgTag = new Image(); //definindo uma variável com uma nova imagem
+	img_imgTag.onload = uploadimg; // ajustando uma função, ao carregar esse variável
+	img_imgTag.src = img_image;   // carregar imagem
+}
+
+function uploadimg() {
+
+	ctx.drawImage(img_imgTag, img_x, img_y, img_width, img_height);
+}
+
+window.addEventListener("keydown", my_keydown);
+
+function my_keydown(e)
 {
-    var GuestName = document.getElementById("name1").value;
-	// use the push function as - names_of_people.push(GuestName);
-	console.log(GuestName);    
-    console.log(names_of_people);
-    var lenght_of_name = names_of_people.length;
-    console.log(lenght_of_name);
-	document.getElementById("display_name").innerHTML=names_of_people.toString();
-   }
-
-
-
-function show()
-{
-	var i= names_of_people.join("<br>");
-	console.log(names_of_people);
-	document.getElementById("p1").innerHTML=i.toString();
-	document.getElementById("sort_button").style.display="block";
+	keyPressed = e.keyCode;
+	console.log(keyPressed);
 	
-}
-
-
-function sorting()
-	{
-		names_of_people           // add the sort function here
-		// .sort();
-		var i= names_of_people.join("<br>");
-		console.log(names_of_people);		
-		document.getElementById("sorted").innerHTML=i.toString();
-		}
-
-
-function searching()
-{
-	var s= document.getElementById("s1").value;
-	var found=0;
-	var j;
-	for(j=0; j<names_of_people.length; j++)
+		if((keyPressed >=97 && keyPressed<=122)|| (keyPressed >=65 && keyPressed<=90))
 		{
-			if(s==names_of_people[j]){
-				found=found+1;
-			}	
+			aplhabetkey();
+			document.getElementById("d1").innerHTML="Você pressionou uma tecla alfabeto";
+			console.log("alphabet key");
 		}
-	document.getElementById("p2").innerHTML="name found "+found+" time/s";
-	console.log("found name "+found+" time/s");
+		else if(keyPressed >=48 && keyPressed<=57)
+		{
+			numberkey();
+			document.getElementById("d1").innerHTML="Você prssionou uma tecla número";
+			console.log("Number key");
+		}
+		else if(keyPressed >=37 && keyPressed<=40)
+		{
+			arrowkey();
+			document.getElementById("d1").innerHTML="Você pressionou uma tecla direcional";
+			console.log("Arrow Key");
+		}
+		else if((keyPressed ==17)|| (keyPressed ==18 || keyPressed ==27))
+		{
+			specialkey();
+			document.getElementById("d1").innerHTML="Você pressionou ctrl/esc/alt";
+			console.log("special key");
+		}
+	else{
+		otherkey();
+		document.getElementById("d1").innerHTML="Você pressionou um símbolo ou outra tecla";
+	}
 }
+
+function aplhabetkey()
+{
+		img_image="alfabeto.png";
+	add();
+}
+function numberkey()
+{
+	img_image="número.png";
+	add();
+}
+function arrowkey()
+{
+	img_image="direcional.png";
+	add();
+}
+function specialkey()
+{
+	img_image="especial.png";
+	add();
+}
+function otherkey()
+{
+	img_image="outras.png";
+	add();
+}
+	
